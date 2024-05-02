@@ -4,7 +4,7 @@
  * Plugin URI:        wparray.com
  * Description:       Apollo is a boilerplate template for creating modern WordPress plugins.
  * Version:           1.0.0
- * Author:            Array
+ * Author:            wparray
  * Author URI:        wparray.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
