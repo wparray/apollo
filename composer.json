@@ -1,0 +1,16 @@
+{
+	"name": "wparray/apollo",
+	"autoload": {
+		"psr-4": {
+			"Apollo\\Admin\\": "src/Admin/Controllers",
+			"Apollo\\Public\\": "src/Public/Controllers",
+			"Apollo\\Core\\": "src/Core/Controllers"
+		}
+	},
+	"authors": [
+		{
+			"name": "wparray.com"
+		}
+	],
+	"require": {}
+}
