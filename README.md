@@ -1,9 +1,6 @@
 <br>
-<br>
 
-<img src="https://www.wparray.com/static/apollo.svg" width="150" height="auto" alt="apollo"/>
-
-# WordPress Plugin Boilerplate
+<img src="https://www.wparray.com/static/apollo-github.png" width="830" height="auto" alt="apollo"/>
 
 ![GitHub Release](https://img.shields.io/github/v/release/wparray/apollo?include_prereleases) ![GitHub License](https://img.shields.io/github/license/wparray/apollo) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fbcef8300f734965ab59b7ac93a28f8f)](https://app.codacy.com/gh/wparray/apollo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/wparray/apollo) ![GitHub repo size](https://img.shields.io/github/repo-size/wparray/apollo)
 
