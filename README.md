@@ -2,6 +2,8 @@
 
 <img src="https://www.wparray.com/static/apollo.svg" width="150" height="auto"/>
 
+![GitHub Release](https://img.shields.io/github/v/release/wparray/apollo?include_prereleases) ![GitHub License](https://img.shields.io/github/license/wparray/apollo) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)] ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/wparray/apollo) ![GitHub repo size](https://img.shields.io/github/repo-size/wparray/apollo)
+
 # WordPress Plugin Boilerplate
 
 Apollo is like a cheat code for speeding up your WordPress plugin projects. It's designed with OOP principles in mind, so your plugins will be easy to manage and expand. And it's packed with modern tools like Webpack, Tailwind, and BrowserSync to make your life even easier.
