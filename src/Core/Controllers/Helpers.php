@@ -1,20 +1,16 @@
 <?php
-
 /**
  * Helpers class
  *
  * This class is responsible for providing helper functions.
  *
- *
  * @package Apollo
  * @subpackage Core
  * @since 1.0.0
  */
-
 namespace Apollo\Core;
 
 final class Helpers {
-
 	/**
 	 * Icon directory
 	 * @var string
@@ -30,13 +26,10 @@ final class Helpers {
 	 * @return string
 	 */
 	public static function get_template( $file, $type = 'admin' ) {
-
 		$file = APOLLO_PLUGIN_DIR . 'templates/' . $type . '/' . $file . '.php';
-
 		if ( file_exists( $file ) ) {
 			include_once $file;
 		}
-
 		return '';
 	}
 
@@ -49,12 +42,11 @@ final class Helpers {
 	 * @return void
 	 */
 	public static function get_icon( $icon, $type = 'inline' ) {
-
+		$icon_path = esc_attr( self::$icon_dir ) . esc_attr( $icon ) . '.svg';
 		if ( $type === 'inline' ) {
-			echo file_get_contents( esc_attr( self::$icon_dir ) . esc_attr( $icon ) . '.svg' ); // phpcs:ignore
+			echo file_get_contents( $icon_path );
 		} else {
-			echo '<img src="' . esc_attr( self::$icon_dir ) . esc_attr( $icon ) . '.svg">'; // phpcs:ignore
+			echo '<img src="' . $icon_path . '">';
 		}
-
 	}
 }

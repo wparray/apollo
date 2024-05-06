@@ -43,164 +43,126 @@ class Init {
 	 */
 	private static $_instance = null;
 
+	/**
+	 * Initialize the class and set its properties.
+	 */
 	public function __construct() {
-
-		// Define the version and name of the plugin.
-		$this->version     = ( defined( 'APOLLO_VERSION' ) ) ? APOLLO_VERSION : '1.0.0';
-		$this->plugin_name = ( defined( 'APOLLO_NAME' ) ) ? APOLLO_NAME : 'apollo';
-
-		// Add the plugin admin menu.
-		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
-
-		// Add the settings action link to the plugins page.
-		add_filter( 'plugin_action_links_' . APOLLO_PLUGIN_BASE, array( $this, 'add_action_links' ) );
-
-		// Load the plugin styles and scripts.
-		add_action( 'admin_enqueue_scripts', array( $this, 'styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
-
+		$this->initializePlugin();
+		$this->setupAdminActions();
 	}
 
 	/**
-	 * Instance
-	 *
-	 * Ensures only one instance of the class is loaded or can be loaded.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 * @static
-	 * @return Plugin An instance of the class.
+	 * Instance of the class.
+	 * @return void
 	 */
 	public static function instance() {
-
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 	}
 
 	/**
-	 * Enqueue styles for the admin area.
-	 *
+	 * Initialize the plugin.
 	 * @return void
 	 */
-	public function styles() {
-		if ( $this->is_plugin_admin() === false ) {
-			return;
-		}
-
-		wp_enqueue_style( $this->plugin_name, APOLLO_PLUGIN_URL . 'dist/css/admin.css', array(), $this->version, 'all' );
+	private function initializePlugin() {
+		$this->version     = defined( 'APOLLO_VERSION' ) ? APOLLO_VERSION : '1.0.0';
+		$this->plugin_name = defined( 'APOLLO_NAME' ) ? APOLLO_NAME : 'apollo';
 	}
 
 	/**
-	 * Enqueue scripts for the admin area.
-	 *
+	 * Setup the admin actions.
 	 * @return void
 	 */
-	public function scripts() {
-		if ( $this->is_plugin_admin() === false ) {
-			return;
-		}
-		wp_enqueue_script( $this->plugin_name, APOLLO_PLUGIN_URL . 'dist/js/admin.js', array(), $this->version, true );
-
+	private function setupAdminActions() {
+		add_action( 'admin_menu', [ $this, 'addPluginAdminMenu' ] );
+		add_filter( 'plugin_action_links_' . APOLLO_PLUGIN_BASE, [ $this, 'addActionLinks' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueStyles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueScripts' ] );
 	}
 
 	/**
-	 * Check if the current page is the plugin admin page.
-	 *
+	 * Enqueue the admin styles.
+	 * @return void
+	 */
+	public function enqueueStyles() {
+		if ( ! $this->isPluginAdmin() ) {
+			return;
+		}
+		wp_enqueue_style( $this->plugin_name, APOLLO_PLUGIN_URL . 'dist/css/admin.css', [], $this->version, 'all' );
+	}
+
+	/**
+	 * Enqueue the admin scripts.
+	 * @return void
+	 */
+	public function enqueueScripts() {
+		if ( ! $this->isPluginAdmin() ) {
+			return;
+		}
+		wp_enqueue_script( $this->plugin_name, APOLLO_PLUGIN_URL . 'dist/js/admin.js', [], $this->version, true );
+	}
+
+	/**
+	 * Check if the current screen is the plugin admin.
 	 * @return bool
 	 */
-	public function is_plugin_admin() {
-		return \str_contains( \get_current_screen()->base, 'apollo' );
+	public function isPluginAdmin() {
+		return str_contains( get_current_screen()->base, 'apollo' );
 	}
 
 	/**
-	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_plugin_admin_menu() {
-		$this->menu_factory( __( 'Apollo Welcome', 'apollo' ), 'apollo', 'display_plugin_setup_page' );
-	}
-
-	/**
-	 * Summary of menu_factory
-	 * @param mixed $title
-	 * @param mixed $slug
-	 * @param mixed $template
-	 * @param mixed $type
-	 * @param mixed $priority
+	 * Add the plugin admin menu.
 	 * @return void
 	 */
-	public function menu_factory(
-		$title,
-		$slug,
-		$template,
-		$type = 'page',
-		$sub = 'apollo',
-		$priority = '99'
-	) {
-		switch ( $type ) {
-			case 'page':
-				\add_options_page(
-					$title,
-					$title,
-					'manage_options',
-					$slug,
-					array(
-						$this,
-						$template
-					),
-					$priority
-				);
-				break;
-			case 'sub':
-				\add_submenu_page(
-					$sub,
-					$title,
-					$title,
-					'manage_options',
-					$slug,
-					array(
-						$this,
-						$template
-					),
-					$priority
-				);
-				break;
-			case 'menu':
-				\add_menu_page(
-					$title,
-					$title,
-					'manage_options',
-					$slug,
-					array(
-						$this,
-						$template
-					),
-					$priority
-				);
-				break;
-		}
+	public function addPluginAdminMenu() {
+		$this->addMenuPage( 'Apollo Welcome', 'apollo', 'displayPluginSetupPage' );
 	}
 
 	/**
-	 * Add settings action link to the plugins page.
-	 * @param mixed $links
-	 * @return string[]
+	 * Add a menu page.
+	 * @param string $title
+	 * @param string $slug
+	 * @param string $template
+	 * @param string $type
+	 * @param string $sub
+	 * @param string $priority
+	 * @return void
 	 */
-	public function add_action_links( $links ) {
+	public function addMenuPage( $title, $slug, $template, $type = 'page', $sub = 'apollo', $priority = '99' ) {
+		$menuFunction = $this->getMenuFunction( $type );
+		$menuFunction( $title, $title, 'manage_options', $slug, [ $this, $template ], $priority );
+	}
 
-		$actions[] = '<a href="' . esc_url( get_admin_url( null, 'options-general.php?page=apollo' ) ) . '"> ' . __( 'Settings', 'apollo' ) . '</a>';
+	/**
+	 * Get the menu function.
+	 * @param string $type
+	 * @return string
+	 */
+	private function getMenuFunction( $type ) {
+		$menuFunctions = [ 
+			'page' => 'add_options_page',
+			'sub' => 'add_submenu_page',
+			'menu' => 'add_menu_page'
+		];
+		return $menuFunctions[ $type ] ?? 'add_menu_page';
+	}
 
-		return array_merge( $actions, $links );
-
+	/**
+	 * Add the plugin action links.
+	 * @param array $links
+	 * @return array
+	 */
+	public function addActionLinks( $links ) {
+		$settingsLink = '<a href="' . esc_url( get_admin_url( null, 'options-general.php?page=apollo' ) ) . '"> ' . __( 'Settings', 'apollo' ) . '</a>';
+		return array_merge( [ $settingsLink ], $links );
 	}
 
 	/**
 	 * Display the plugin setup page.
 	 * @return void
 	 */
-	public function display_plugin_setup_page() {
+	public function displayPluginSetupPage() {
 		Helpers::get_template( 'settings', 'admin' );
 	}
 }
