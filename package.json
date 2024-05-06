@@ -1,7 +1,6 @@
 {
-	"name": "ThemeKit",
+	"name": "Apollo",
 	"version": "1.0.0",
-	"description": "The simplest WordPress starter theme including full setup for Sass, PostCSS, Autoprefixer, stylelint, Webpack, ESLint, imagemin, Browsersync, etc.",
 	"scripts": {
 		"dev": "mix watch --mix-config=./.dev/webpack.mix.js",
 		"build": "mix  --mix-config=./.dev/webpack.mix.js",

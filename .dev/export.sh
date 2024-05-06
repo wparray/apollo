@@ -1,5 +1,5 @@
 #!/bin/bash
-echo Whats the name of the file?
+echo What is the name of the file?
 read name
 
 zip -rq $name.zip ./ -x \

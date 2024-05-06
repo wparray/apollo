@@ -37,3 +37,5 @@ mix.browserSync({
 	files: ["*.php", "src/**/**/*"],
 });
 ```
+
+More will be documented soon but in the meantime, feel free to explore the package since the PHP classes and functions are pretty self-explanatory.

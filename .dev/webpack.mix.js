@@ -104,9 +104,9 @@ mix
 					{ from: "src/Admin/Static/icons", to: "admin/icons", noErrorOnMissing: true },
 					{ from: "src/Admin/Static/fonts", to: "admin/fonts", noErrorOnMissing: true },
 
-					{ from: "src/Public/Static/images", to: "admin/images", noErrorOnMissing: true },
-					{ from: "src/Public/Static/icons", to: "admin/icons", noErrorOnMissing: true },
-					{ from: "src/Public/Static/fonts", to: "admin/fonts", noErrorOnMissing: true },
+					{ from: "src/Public/Static/images", to: "public/images", noErrorOnMissing: true },
+					{ from: "src/Public/Static/icons", to: "public/icons", noErrorOnMissing: true },
+					{ from: "src/Public/Static/fonts", to: "public/fonts", noErrorOnMissing: true },
 				],
 			}),
 		],
